@@ -25,8 +25,8 @@ Windows11でもたぶん動きますが未検証です。
 
 ### プログラムのダウンロード
 
-プログラムは[ここ](https://github.com/tceoo1/TubeTester/CurveTracer.zip)からダウンロードできます
+プログラムは[ここ](https://github.com/tceoo1/TubeTester/blob/master/CurveTracer.zip)からダウンロードできます
 
 ## くわしい使い方
 
-[ドキュメントフォルダ](https://github.com/tceoo1/TubeTester/doc)に各種ドキュメントがあります。
+[ドキュメントフォルダ](https://github.com/tceoo1/TubeTester/tree/master/doc)に各種ドキュメントがあります。
