@@ -30,9 +30,9 @@ namespace CurveTracer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.rdoTubeSelectTriode = new System.Windows.Forms.RadioButton();
             this.rdoTubeSelectPentode = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -80,8 +80,10 @@ namespace CurveTracer
             this.txtPlateVoltageStep = new System.Windows.Forms.TextBox();
             this.txtGridVoltageLast = new System.Windows.Forms.TextBox();
             this.txtPlateVoltageLast = new System.Windows.Forms.TextBox();
+            this.txtGrid2VoltageCurve = new System.Windows.Forms.TextBox();
             this.txtGridVoltageInitial = new System.Windows.Forms.TextBox();
             this.txtPlateVoltageInitial = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.chartCurveResult = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -96,8 +98,15 @@ namespace CurveTracer
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.txtGrid2VoltageCurve = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtLoadLineVoltage = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtLoadLineResister = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.btnHideLoadLine = new System.Windows.Forms.Button();
+            this.btnShowLoadLine = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -106,6 +115,7 @@ namespace CurveTracer
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // rdoTubeSelectTriode
@@ -571,6 +581,13 @@ namespace CurveTracer
             this.txtPlateVoltageLast.Size = new System.Drawing.Size(64, 19);
             this.txtPlateVoltageLast.TabIndex = 1;
             // 
+            // txtGrid2VoltageCurve
+            // 
+            this.txtGrid2VoltageCurve.Location = new System.Drawing.Point(128, 121);
+            this.txtGrid2VoltageCurve.Name = "txtGrid2VoltageCurve";
+            this.txtGrid2VoltageCurve.Size = new System.Drawing.Size(64, 19);
+            this.txtGrid2VoltageCurve.TabIndex = 6;
+            // 
             // txtGridVoltageInitial
             // 
             this.txtGridVoltageInitial.Location = new System.Drawing.Point(60, 81);
@@ -584,6 +601,15 @@ namespace CurveTracer
             this.txtPlateVoltageInitial.Name = "txtPlateVoltageInitial";
             this.txtPlateVoltageInitial.Size = new System.Drawing.Size(64, 19);
             this.txtPlateVoltageInitial.TabIndex = 0;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(9, 124);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(113, 12);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "G2電圧[V](0V～20V)";
             // 
             // label14
             // 
@@ -605,26 +631,26 @@ namespace CurveTracer
             // 
             // chartCurveResult
             // 
-            chartArea5.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea5.AxisX.Maximum = 20D;
-            chartArea5.AxisX.Minimum = 0D;
-            chartArea5.AxisX.Title = "プレート電圧(V)";
-            chartArea5.AxisY.Title = "プレート電流(mA)";
-            chartArea5.Name = "ChartArea1";
-            this.chartCurveResult.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chartCurveResult.Legends.Add(legend5);
+            chartArea3.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea3.AxisX.Maximum = 20D;
+            chartArea3.AxisX.Minimum = 0D;
+            chartArea3.AxisX.Title = "プレート電圧(V)";
+            chartArea3.AxisY.Title = "プレート電流(mA)";
+            chartArea3.Name = "ChartArea1";
+            this.chartCurveResult.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartCurveResult.Legends.Add(legend3);
             this.chartCurveResult.Location = new System.Drawing.Point(6, 158);
             this.chartCurveResult.Name = "chartCurveResult";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.CustomProperties = "IsXAxisQuantitative=True";
-            series5.EmptyPointStyle.MarkerBorderColor = System.Drawing.Color.Blue;
-            series5.EmptyPointStyle.MarkerColor = System.Drawing.Color.Lime;
-            series5.EmptyPointStyle.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.chartCurveResult.Series.Add(series5);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.CustomProperties = "IsXAxisQuantitative=True";
+            series3.EmptyPointStyle.MarkerBorderColor = System.Drawing.Color.Blue;
+            series3.EmptyPointStyle.MarkerColor = System.Drawing.Color.Lime;
+            series3.EmptyPointStyle.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chartCurveResult.Series.Add(series3);
             this.chartCurveResult.Size = new System.Drawing.Size(475, 329);
             this.chartCurveResult.TabIndex = 5;
             this.chartCurveResult.Text = "chart1";
@@ -635,9 +661,9 @@ namespace CurveTracer
             this.columnHeader1,
             this.columnHeader2});
             this.lvCurveResult.HideSelection = false;
-            this.lvCurveResult.Location = new System.Drawing.Point(487, 6);
+            this.lvCurveResult.Location = new System.Drawing.Point(487, 158);
             this.lvCurveResult.Name = "lvCurveResult";
-            this.lvCurveResult.Size = new System.Drawing.Size(273, 481);
+            this.lvCurveResult.Size = new System.Drawing.Size(273, 329);
             this.lvCurveResult.TabIndex = 6;
             this.lvCurveResult.UseCompatibleStateImageBehavior = false;
             this.lvCurveResult.View = System.Windows.Forms.View.Details;
@@ -709,6 +735,7 @@ namespace CurveTracer
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Controls.Add(this.chartCurveResult);
             this.tabPage1.Controls.Add(this.lvCurveResult);
@@ -731,21 +758,92 @@ namespace CurveTracer
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "動作確認";
             // 
-            // txtGrid2VoltageCurve
+            // groupBox5
             // 
-            this.txtGrid2VoltageCurve.Location = new System.Drawing.Point(128, 121);
-            this.txtGrid2VoltageCurve.Name = "txtGrid2VoltageCurve";
-            this.txtGrid2VoltageCurve.Size = new System.Drawing.Size(64, 19);
-            this.txtGrid2VoltageCurve.TabIndex = 6;
+            this.groupBox5.Controls.Add(this.btnShowLoadLine);
+            this.groupBox5.Controls.Add(this.btnHideLoadLine);
+            this.groupBox5.Controls.Add(this.txtLoadLineResister);
+            this.groupBox5.Controls.Add(this.label30);
+            this.groupBox5.Controls.Add(this.txtLoadLineVoltage);
+            this.groupBox5.Controls.Add(this.label32);
+            this.groupBox5.Controls.Add(this.label31);
+            this.groupBox5.Controls.Add(this.label29);
+            this.groupBox5.Location = new System.Drawing.Point(487, 6);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(272, 145);
+            this.groupBox5.TabIndex = 7;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "負荷直線";
             // 
-            // label28
+            // txtLoadLineVoltage
             // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(9, 124);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(113, 12);
-            this.label28.TabIndex = 0;
-            this.label28.Text = "G2電圧[V](0V～20V)";
+            this.txtLoadLineVoltage.Location = new System.Drawing.Point(89, 25);
+            this.txtLoadLineVoltage.Name = "txtLoadLineVoltage";
+            this.txtLoadLineVoltage.Size = new System.Drawing.Size(64, 19);
+            this.txtLoadLineVoltage.TabIndex = 5;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(18, 28);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(65, 12);
+            this.label29.TabIndex = 2;
+            this.label29.Text = "プレート電圧";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(30, 53);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(53, 12);
+            this.label30.TabIndex = 2;
+            this.label30.Text = "負荷抵抗";
+            // 
+            // txtLoadLineResister
+            // 
+            this.txtLoadLineResister.Location = new System.Drawing.Point(89, 50);
+            this.txtLoadLineResister.Name = "txtLoadLineResister";
+            this.txtLoadLineResister.Size = new System.Drawing.Size(64, 19);
+            this.txtLoadLineResister.TabIndex = 5;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(159, 28);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(13, 12);
+            this.label31.TabIndex = 2;
+            this.label31.Text = "V";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(159, 53);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(23, 12);
+            this.label32.TabIndex = 2;
+            this.label32.Text = "kΩ";
+            // 
+            // btnHideLoadLine
+            // 
+            this.btnHideLoadLine.Location = new System.Drawing.Point(27, 88);
+            this.btnHideLoadLine.Name = "btnHideLoadLine";
+            this.btnHideLoadLine.Size = new System.Drawing.Size(62, 36);
+            this.btnHideLoadLine.TabIndex = 6;
+            this.btnHideLoadLine.Text = "消去";
+            this.btnHideLoadLine.UseVisualStyleBackColor = true;
+            this.btnHideLoadLine.Click += new System.EventHandler(this.btnHideLoadLine_Click);
+            // 
+            // btnShowLoadLine
+            // 
+            this.btnShowLoadLine.Location = new System.Drawing.Point(110, 88);
+            this.btnShowLoadLine.Name = "btnShowLoadLine";
+            this.btnShowLoadLine.Size = new System.Drawing.Size(62, 36);
+            this.btnShowLoadLine.TabIndex = 6;
+            this.btnShowLoadLine.Text = "表示";
+            this.btnShowLoadLine.UseVisualStyleBackColor = true;
+            this.btnShowLoadLine.Click += new System.EventHandler(this.btnShowLoadLine_Click);
             // 
             // Form1
             // 
@@ -774,6 +872,8 @@ namespace CurveTracer
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -846,6 +946,15 @@ namespace CurveTracer
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button btnShowLoadLine;
+        private System.Windows.Forms.Button btnHideLoadLine;
+        private System.Windows.Forms.TextBox txtLoadLineResister;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox txtLoadLineVoltage;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label29;
     }
 }
 

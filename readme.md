@@ -30,3 +30,8 @@ Windows11でもたぶん動きますが未検証です。
 ## くわしい使い方
 
 [ドキュメントフォルダ](https://github.com/tceoo1/TubeTester/tree/master/doc)に各種ドキュメントがあります。
+
+## その他
+
+メイン基板は秋月B基板（95×72mm）、アダプタ基板は秋月45基板（45×45mm）と同一形状としています。
+秋月で販売されている[B基板用アクリルパネル(P-10243)](https://akizukidenshi.com/catalog/g/gP-10243/)や[45基板用アクリルパネル(P-12443)](https://akizukidenshi.com/catalog/g/gP-12443/)などと組み合わせることができます。

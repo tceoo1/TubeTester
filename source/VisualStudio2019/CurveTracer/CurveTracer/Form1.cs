@@ -100,6 +100,7 @@ namespace CurveTracer
                 chartCurveResult.Series.Clear();
                 lvCurveResult.Items.Clear();
                 chartCurveResult.ChartAreas[0].AxisX.Maximum = lPlate.End;
+                chartCurveResult.ChartAreas[0].AxisY.Maximum = double.NaN;
                 chkCurveRunning.Checked = true;
                 m_CancelToken = new CancellationTokenSource();
                 btnStartMeasureCurve.Text = "中断";
@@ -157,7 +158,7 @@ namespace CurveTracer
                     string PI = SerialSend("G4", true);
                     double pi = double.Parse(PI);
                     double pv = double.Parse(PV);
-                    //double val = plate * 0.1 + grid + 1;
+
                     this.Invoke(new MethodInvoker(() => {
                         s.Points.AddXY(pv, pi);
                         var itm = lvCurveResult.Items.Add($"{pv:0.0}");
@@ -165,7 +166,6 @@ namespace CurveTracer
                         itm.Group = g;
                         lvCurveResult.EnsureVisible(lvCurveResult.Items.Count - 1);
                     }));
-                    //Thread.Sleep(100);
                 }
             }
         }
@@ -210,8 +210,6 @@ namespace CurveTracer
                     serialPort1.DiscardInBuffer();
                     serialPort1.DiscardOutBuffer();
 
-                    WaitReady();
-
                     r = SerialSend($"S1{P:0.00}", true);
                     if (SetG2)
                     {
@@ -225,6 +223,7 @@ namespace CurveTracer
                 {
                     MessageBox.Show(ex.Message);
                     if (serialPort1.IsOpen) serialPort1.Close();
+                    return;
                 }
             });
 
@@ -268,20 +267,6 @@ namespace CurveTracer
             {
                 frm.SetLog(s);
             }
-        }
-
-        private void WaitReady()
-        {
-            //キャンセルによる中断処理必須やね
-            return;
-            string r = string.Empty;
-            do
-            {
-                r = serialPort1.ReadLine();
-                SetLog($"RX:{r}");
-                if (r.Trim() == "Ready") break;
-            }
-            while (true);
         }
 
         private void btnOpenLogWindow_Click(object sender, EventArgs e)
@@ -355,5 +340,57 @@ namespace CurveTracer
             });
         }
 
+        System.Windows.Forms.DataVisualization.Charting.Series seriesLoadLine = null;
+
+        private void btnShowLoadLine_Click(object sender, EventArgs e)
+        {
+            double V, R, I;
+
+            try
+            {
+                V = double.Parse(txtLoadLineVoltage.Text);
+                R = double.Parse(txtLoadLineResister.Text);
+                if (R <= 0) throw new ArgumentOutOfRangeException("抵抗値を0以下にすることはできません");
+                if (V < 0) throw new ArgumentOutOfRangeException("電圧をマイナスの値にすることはできません");
+                I = V / R;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("入力値が不正です:\n" + ex.Message);
+                return;
+            }
+
+            if (seriesLoadLine is null)
+            {
+                seriesLoadLine = chartCurveResult.Series.Add($"LoadLine");
+            }
+            else
+            {
+                seriesLoadLine.Points.Clear();
+            }
+
+            var maxY = chartCurveResult.ChartAreas[0].AxisY.Maximum;
+            var maxX = chartCurveResult.ChartAreas[0].AxisX.Maximum;
+
+            seriesLoadLine.Points.AddXY(0, I);
+            seriesLoadLine.Points.AddXY(V, 0);
+            seriesLoadLine.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            chartCurveResult.ChartAreas[0].AxisX.Maximum = maxX;
+            chartCurveResult.ChartAreas[0].AxisY.Maximum = maxY;
+
+        }
+
+        private void btnHideLoadLine_Click(object sender, EventArgs e)
+        {
+            if (seriesLoadLine is null)
+            {
+            }
+            else
+            {
+                chartCurveResult.Series.Remove(seriesLoadLine);
+                seriesLoadLine = null;
+            }
+        }
     }
 }

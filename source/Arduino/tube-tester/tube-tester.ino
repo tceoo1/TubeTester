@@ -5,7 +5,7 @@
 #include <MCP342x.h>
 #include <MCP_DAC.h>
 
-#define VERSION "TubeTester version 0.01"
+#define VERSION "TubeTester version 1.00"
 
 #define LED 7
 #define CS1 10
