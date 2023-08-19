@@ -5,7 +5,7 @@
 #include <MCP342x.h>
 #include <MCP_DAC.h>
 
-#define VERSION "TubeTester version 1.00"
+#define VERSION "TubeTester version 1.01"
 
 #define LED 7
 #define CS1 10
@@ -213,8 +213,8 @@ double getHV()
     //Serial.println((double)ad * Factor);
   }
 
-  //VA=VA-AD*(12k+2k)/2k
-  ret = (double)ad * Factor * (12000.0 + 2000.0) / 2000.0;
+  //VA=VA-AD*(12k+2.2k)/2.2k
+  ret = (double)ad * Factor * (12000.0 + 2200.0) / 2200.0;
 
   return ret;
 }
