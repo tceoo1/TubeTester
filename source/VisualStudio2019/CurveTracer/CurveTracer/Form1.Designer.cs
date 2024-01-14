@@ -30,9 +30,9 @@ namespace CurveTracer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.rdoTubeSelectTriode = new System.Windows.Forms.RadioButton();
             this.rdoTubeSelectPentode = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -97,16 +97,22 @@ namespace CurveTracer
             this.btnOpenLogWindow = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.txtLoadLineVoltage = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.txtLoadLineResister = new System.Windows.Forms.TextBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.btnHideLoadLine = new System.Windows.Forms.Button();
             this.btnShowLoadLine = new System.Windows.Forms.Button();
+            this.btnHideLoadLine = new System.Windows.Forms.Button();
+            this.txtLoadLineResister = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtLoadLineVoltage = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnSaveGraphImage = new System.Windows.Forms.Button();
+            this.label33 = new System.Windows.Forms.Label();
+            this.txtGraphTitle = new System.Windows.Forms.TextBox();
+            this.btnSaveCSV = new System.Windows.Forms.Button();
+            this.btnSetTitle = new System.Windows.Forms.Button();
+            this.btnReadCSV = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -114,8 +120,8 @@ namespace CurveTracer
             ((System.ComponentModel.ISupportInitialize)(this.chartCurveResult)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // rdoTubeSelectTriode
@@ -453,6 +459,9 @@ namespace CurveTracer
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnSetTitle);
+            this.groupBox4.Controls.Add(this.txtGraphTitle);
+            this.groupBox4.Controls.Add(this.label33);
             this.groupBox4.Controls.Add(this.chkCurveRunning);
             this.groupBox4.Controls.Add(this.btnStartMeasureCurve);
             this.groupBox4.Controls.Add(this.label17);
@@ -493,7 +502,7 @@ namespace CurveTracer
             // 
             this.btnStartMeasureCurve.Location = new System.Drawing.Point(374, 41);
             this.btnStartMeasureCurve.Name = "btnStartMeasureCurve";
-            this.btnStartMeasureCurve.Size = new System.Drawing.Size(75, 95);
+            this.btnStartMeasureCurve.Size = new System.Drawing.Size(75, 59);
             this.btnStartMeasureCurve.TabIndex = 7;
             this.btnStartMeasureCurve.Text = "計測開始";
             this.btnStartMeasureCurve.UseVisualStyleBackColor = true;
@@ -631,26 +640,26 @@ namespace CurveTracer
             // 
             // chartCurveResult
             // 
-            chartArea3.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea3.AxisX.Maximum = 20D;
-            chartArea3.AxisX.Minimum = 0D;
-            chartArea3.AxisX.Title = "プレート電圧(V)";
-            chartArea3.AxisY.Title = "プレート電流(mA)";
-            chartArea3.Name = "ChartArea1";
-            this.chartCurveResult.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartCurveResult.Legends.Add(legend3);
+            chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.AxisX.Maximum = 20D;
+            chartArea1.AxisX.Minimum = 0D;
+            chartArea1.AxisX.Title = "プレート電圧(V)";
+            chartArea1.AxisY.Title = "プレート電流(mA)";
+            chartArea1.Name = "ChartArea1";
+            this.chartCurveResult.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartCurveResult.Legends.Add(legend1);
             this.chartCurveResult.Location = new System.Drawing.Point(6, 158);
             this.chartCurveResult.Name = "chartCurveResult";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.CustomProperties = "IsXAxisQuantitative=True";
-            series3.EmptyPointStyle.MarkerBorderColor = System.Drawing.Color.Blue;
-            series3.EmptyPointStyle.MarkerColor = System.Drawing.Color.Lime;
-            series3.EmptyPointStyle.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chartCurveResult.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.CustomProperties = "IsXAxisQuantitative=True";
+            series1.EmptyPointStyle.MarkerBorderColor = System.Drawing.Color.Blue;
+            series1.EmptyPointStyle.MarkerColor = System.Drawing.Color.Lime;
+            series1.EmptyPointStyle.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCurveResult.Series.Add(series1);
             this.chartCurveResult.Size = new System.Drawing.Size(475, 329);
             this.chartCurveResult.TabIndex = 5;
             this.chartCurveResult.Text = "chart1";
@@ -735,6 +744,9 @@ namespace CurveTracer
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.btnReadCSV);
+            this.tabPage1.Controls.Add(this.btnSaveCSV);
+            this.tabPage1.Controls.Add(this.btnSaveGraphImage);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Controls.Add(this.chartCurveResult);
@@ -745,18 +757,6 @@ namespace CurveTracer
             this.tabPage1.Size = new System.Drawing.Size(766, 493);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "カーブ計測";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(766, 493);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "動作確認";
             // 
             // groupBox5
             // 
@@ -770,64 +770,24 @@ namespace CurveTracer
             this.groupBox5.Controls.Add(this.label29);
             this.groupBox5.Location = new System.Drawing.Point(487, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(272, 145);
+            this.groupBox5.Size = new System.Drawing.Size(187, 145);
             this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "負荷直線";
             // 
-            // txtLoadLineVoltage
+            // btnShowLoadLine
             // 
-            this.txtLoadLineVoltage.Location = new System.Drawing.Point(89, 25);
-            this.txtLoadLineVoltage.Name = "txtLoadLineVoltage";
-            this.txtLoadLineVoltage.Size = new System.Drawing.Size(64, 19);
-            this.txtLoadLineVoltage.TabIndex = 5;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(18, 28);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(65, 12);
-            this.label29.TabIndex = 2;
-            this.label29.Text = "プレート電圧";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(30, 53);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(53, 12);
-            this.label30.TabIndex = 2;
-            this.label30.Text = "負荷抵抗";
-            // 
-            // txtLoadLineResister
-            // 
-            this.txtLoadLineResister.Location = new System.Drawing.Point(89, 50);
-            this.txtLoadLineResister.Name = "txtLoadLineResister";
-            this.txtLoadLineResister.Size = new System.Drawing.Size(64, 19);
-            this.txtLoadLineResister.TabIndex = 5;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(159, 28);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(13, 12);
-            this.label31.TabIndex = 2;
-            this.label31.Text = "V";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(159, 53);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(23, 12);
-            this.label32.TabIndex = 2;
-            this.label32.Text = "kΩ";
+            this.btnShowLoadLine.Location = new System.Drawing.Point(104, 88);
+            this.btnShowLoadLine.Name = "btnShowLoadLine";
+            this.btnShowLoadLine.Size = new System.Drawing.Size(62, 36);
+            this.btnShowLoadLine.TabIndex = 6;
+            this.btnShowLoadLine.Text = "表示";
+            this.btnShowLoadLine.UseVisualStyleBackColor = true;
+            this.btnShowLoadLine.Click += new System.EventHandler(this.btnShowLoadLine_Click);
             // 
             // btnHideLoadLine
             // 
-            this.btnHideLoadLine.Location = new System.Drawing.Point(27, 88);
+            this.btnHideLoadLine.Location = new System.Drawing.Point(21, 88);
             this.btnHideLoadLine.Name = "btnHideLoadLine";
             this.btnHideLoadLine.Size = new System.Drawing.Size(62, 36);
             this.btnHideLoadLine.TabIndex = 6;
@@ -835,15 +795,123 @@ namespace CurveTracer
             this.btnHideLoadLine.UseVisualStyleBackColor = true;
             this.btnHideLoadLine.Click += new System.EventHandler(this.btnHideLoadLine_Click);
             // 
-            // btnShowLoadLine
+            // txtLoadLineResister
             // 
-            this.btnShowLoadLine.Location = new System.Drawing.Point(110, 88);
-            this.btnShowLoadLine.Name = "btnShowLoadLine";
-            this.btnShowLoadLine.Size = new System.Drawing.Size(62, 36);
-            this.btnShowLoadLine.TabIndex = 6;
-            this.btnShowLoadLine.Text = "表示";
-            this.btnShowLoadLine.UseVisualStyleBackColor = true;
-            this.btnShowLoadLine.Click += new System.EventHandler(this.btnShowLoadLine_Click);
+            this.txtLoadLineResister.Location = new System.Drawing.Point(83, 50);
+            this.txtLoadLineResister.Name = "txtLoadLineResister";
+            this.txtLoadLineResister.Size = new System.Drawing.Size(64, 19);
+            this.txtLoadLineResister.TabIndex = 5;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(24, 53);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(53, 12);
+            this.label30.TabIndex = 2;
+            this.label30.Text = "負荷抵抗";
+            // 
+            // txtLoadLineVoltage
+            // 
+            this.txtLoadLineVoltage.Location = new System.Drawing.Point(83, 25);
+            this.txtLoadLineVoltage.Name = "txtLoadLineVoltage";
+            this.txtLoadLineVoltage.Size = new System.Drawing.Size(64, 19);
+            this.txtLoadLineVoltage.TabIndex = 5;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(153, 53);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(23, 12);
+            this.label32.TabIndex = 2;
+            this.label32.Text = "kΩ";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(153, 28);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(13, 12);
+            this.label31.TabIndex = 2;
+            this.label31.Text = "V";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(12, 28);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(65, 12);
+            this.label29.TabIndex = 2;
+            this.label29.Text = "プレート電圧";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(766, 493);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "動作確認";
+            // 
+            // btnSaveGraphImage
+            // 
+            this.btnSaveGraphImage.Location = new System.Drawing.Point(680, 11);
+            this.btnSaveGraphImage.Name = "btnSaveGraphImage";
+            this.btnSaveGraphImage.Size = new System.Drawing.Size(75, 39);
+            this.btnSaveGraphImage.TabIndex = 8;
+            this.btnSaveGraphImage.Text = "グラフ保存";
+            this.btnSaveGraphImage.UseVisualStyleBackColor = true;
+            this.btnSaveGraphImage.Click += new System.EventHandler(this.btnSaveGraphImage_Click);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(198, 124);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(65, 12);
+            this.label33.TabIndex = 8;
+            this.label33.Text = "グラフタイトル";
+            // 
+            // txtGraphTitle
+            // 
+            this.txtGraphTitle.Location = new System.Drawing.Point(269, 121);
+            this.txtGraphTitle.Name = "txtGraphTitle";
+            this.txtGraphTitle.Size = new System.Drawing.Size(141, 19);
+            this.txtGraphTitle.TabIndex = 9;
+            // 
+            // btnSaveCSV
+            // 
+            this.btnSaveCSV.Location = new System.Drawing.Point(680, 56);
+            this.btnSaveCSV.Name = "btnSaveCSV";
+            this.btnSaveCSV.Size = new System.Drawing.Size(75, 34);
+            this.btnSaveCSV.TabIndex = 9;
+            this.btnSaveCSV.Text = "CSV保存";
+            this.btnSaveCSV.UseVisualStyleBackColor = true;
+            this.btnSaveCSV.Click += new System.EventHandler(this.btnSaveCSV_Click);
+            // 
+            // btnSetTitle
+            // 
+            this.btnSetTitle.Location = new System.Drawing.Point(416, 115);
+            this.btnSetTitle.Name = "btnSetTitle";
+            this.btnSetTitle.Size = new System.Drawing.Size(53, 25);
+            this.btnSetTitle.TabIndex = 10;
+            this.btnSetTitle.Text = "設定";
+            this.btnSetTitle.UseVisualStyleBackColor = true;
+            this.btnSetTitle.Click += new System.EventHandler(this.btnSetTitle_Click);
+            // 
+            // btnReadCSV
+            // 
+            this.btnReadCSV.Location = new System.Drawing.Point(680, 96);
+            this.btnReadCSV.Name = "btnReadCSV";
+            this.btnReadCSV.Size = new System.Drawing.Size(75, 34);
+            this.btnReadCSV.TabIndex = 9;
+            this.btnReadCSV.Text = "CSV読込";
+            this.btnReadCSV.UseVisualStyleBackColor = true;
+            this.btnReadCSV.Click += new System.EventHandler(this.btnReadCSV_Click);
             // 
             // Form1
             // 
@@ -871,9 +939,9 @@ namespace CurveTracer
             ((System.ComponentModel.ISupportInitialize)(this.chartCurveResult)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -955,6 +1023,12 @@ namespace CurveTracer
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox txtGraphTitle;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Button btnSaveGraphImage;
+        private System.Windows.Forms.Button btnSaveCSV;
+        private System.Windows.Forms.Button btnSetTitle;
+        private System.Windows.Forms.Button btnReadCSV;
     }
 }
 

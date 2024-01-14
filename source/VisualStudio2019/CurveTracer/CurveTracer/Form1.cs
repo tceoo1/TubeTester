@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace CurveTracer
 {
@@ -101,6 +104,8 @@ namespace CurveTracer
                 lvCurveResult.Items.Clear();
                 chartCurveResult.ChartAreas[0].AxisX.Maximum = lPlate.End;
                 chartCurveResult.ChartAreas[0].AxisY.Maximum = double.NaN;
+                chartCurveResult.Titles.Clear();
+                chartCurveResult.Titles.Add(txtGraphTitle.Text);
                 chkCurveRunning.Checked = true;
                 m_CancelToken = new CancellationTokenSource();
                 btnStartMeasureCurve.Text = "中断";
@@ -362,7 +367,7 @@ namespace CurveTracer
 
             if (seriesLoadLine is null)
             {
-                seriesLoadLine = chartCurveResult.Series.Add($"LoadLine");
+                seriesLoadLine = chartCurveResult.Series.Add($"{txtLoadLineVoltage.Text}V {txtLoadLineResister.Text}kΩ");
             }
             else
             {
@@ -374,7 +379,7 @@ namespace CurveTracer
 
             seriesLoadLine.Points.AddXY(0, I);
             seriesLoadLine.Points.AddXY(V, 0);
-            seriesLoadLine.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            seriesLoadLine.ChartType = SeriesChartType.Line;
 
             chartCurveResult.ChartAreas[0].AxisX.Maximum = maxX;
             chartCurveResult.ChartAreas[0].AxisY.Maximum = maxY;
@@ -390,6 +395,177 @@ namespace CurveTracer
             {
                 chartCurveResult.Series.Remove(seriesLoadLine);
                 seriesLoadLine = null;
+            }
+        }
+
+        private void btnSaveGraphImage_Click(object sender, EventArgs e)
+        {
+            using (var frm = new SaveFileDialog())
+            {
+                frm.Filter = "PNG|*.png|BMP|*.bmp|JPEG|*.jpg|EMF|*.emf";
+                var r = frm.ShowDialog();
+                if (r != DialogResult.OK) return;
+                var ext = Path.GetExtension(frm.FileName).ToLower();
+                try
+                {
+                    switch (ext)
+                    {
+                        case ".png":
+                            chartCurveResult.SaveImage(frm.FileName, ChartImageFormat.Png);
+                            break;
+                        case ".bmp":
+                            chartCurveResult.SaveImage(frm.FileName, ChartImageFormat.Bmp);
+                            break;
+                        case ".jpg":
+                            chartCurveResult.SaveImage(frm.FileName, ChartImageFormat.Jpeg);
+                            break;
+                        case ".emf":
+                            chartCurveResult.SaveImage(frm.FileName, ChartImageFormat.EmfDual);
+                            break;
+                        default:
+                            chartCurveResult.SaveImage(frm.FileName, ChartImageFormat.Png);
+                            break;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("保存に失敗しました\n" + ex.Message);
+                }
+            }
+        }
+
+        private void btnSaveCSV_Click(object sender, EventArgs e)
+        {
+            using (var frm = new SaveFileDialog())
+            {
+                frm.Filter = "CSV|*.csv";
+                var r = frm.ShowDialog();
+                if (r != DialogResult.OK) return;
+
+                var maxY = chartCurveResult.ChartAreas[0].AxisY.Maximum;
+                var maxX = chartCurveResult.ChartAreas[0].AxisX.Maximum;
+
+                //using (var sw = new System.IO.StringWriter())
+                try
+                {
+                    using (var sw = new StreamWriter(frm.FileName, false, Encoding.UTF8))
+                    {
+                        sw.WriteLine($"CurveTracer,{txtGraphTitle.Text.Replace(",", "_")},{maxX:0}|{maxY:0.0}");
+                        sw.WriteLine("Grid(V),Plate(V),Plate(mA)");
+                        foreach (ListViewItem itm in lvCurveResult.Items)
+                        {
+                            string g = Regex.Match(itm.Group.Header, @"-?\d\.\d{2}").Value;
+                            sw.WriteLine($"{g},{itm.Text},{itm.SubItems[1].Text}");
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("保存に失敗しました:\n" + ex.Message);
+                }
+            }
+        }
+
+        private void btnSetTitle_Click(object sender, EventArgs e)
+        {
+            chartCurveResult.Titles.Clear();
+            chartCurveResult.Titles.Add(txtGraphTitle.Text);
+        }
+
+        private void btnReadCSV_Click(object sender, EventArgs e)
+        {
+            using (var frm = new OpenFileDialog())
+            {
+                frm.Filter = "CSV|*.csv";
+                var r = frm.ShowDialog();
+                if (r != DialogResult.OK) return;
+                try
+                {
+                    using (var sr = new StreamReader(frm.FileName))
+                    {
+                        string line = sr.ReadLine();
+                        string[] col = line.Split(',');
+                        string[] max = col[2].Split('|');
+                        if (col.Length != 3 || col[0] != "CurveTracer" || max.Length != 2)
+                        {
+                            MessageBox.Show("ファイルが不正です");
+                            return;
+                        }
+                        double maxX, maxY;
+                        //txtGraphTitle.Text = col[1];
+                        try
+                        {
+                            maxX = double.Parse(max[0]);
+                            maxY = double.Parse(max[1]);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("ファイルが不正です");
+                            return;
+                        }
+
+                        chartCurveResult.Series.Clear();
+                        lvCurveResult.Items.Clear();
+                        chartCurveResult.ChartAreas[0].AxisX.Maximum = maxX;// lPlate.End;
+                        chartCurveResult.ChartAreas[0].AxisY.Maximum = double.NaN;
+                        chartCurveResult.Titles.Clear();
+                        chartCurveResult.Titles.Add(col[1].Trim());
+
+                        line = sr.ReadLine(); //カラムタイトルなので読み飛ばし
+
+                        double grid, pi, pv;
+                        string G, PI, PV;
+
+                        Dictionary<string, (ListViewGroup g, Series s)> dictG = new Dictionary<string, (ListViewGroup, Series)>();
+
+                        ListViewGroup g;
+                        Series s = new Series();
+
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            col = line.Split(',');
+
+                            if (col.Length != 3) continue;
+                            try
+                            {
+                                G = col[0].Trim();
+                                PV = col[1].Trim();
+                                PI = col[2].Trim();
+
+                                grid = double.Parse(G);
+                                pv = double.Parse(PV);
+                                pi = double.Parse(PI);
+
+                                if (dictG.ContainsKey(G) == false)
+                                {
+                                    s = chartCurveResult.Series.Add($"Grid={grid:0.00}V");
+                                    g = new ListViewGroup($"Grid={grid:0.00}V");
+
+                                    dictG.Add(G, (g, s));
+                                    lvCurveResult.Groups.Add(g);
+                                    s.ChartType = SeriesChartType.Line;
+                                }
+                                else
+                                {
+                                    (g, s) = dictG[G];
+                                }
+                                s.Points.AddXY(pv, pi);
+                                var itm = lvCurveResult.Items.Add($"{pv:0.0}");
+                                itm.SubItems.Add($"{pi:0.000}");
+                                itm.Group = g;
+                                lvCurveResult.EnsureVisible(lvCurveResult.Items.Count - 1);
+                            }
+                            catch
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("読み込みに失敗しました:\n" + ex.Message);
+                }
             }
         }
     }
